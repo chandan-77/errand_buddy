@@ -1,0 +1,26 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../models/task.dart';
+
+class TaskStorage {
+  static const String _taskKey = 'tasks';
+
+  static Future<void> saveTasks(List<Task> tasks) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> jsonTasks =
+        tasks.map((task) => jsonEncode(task.toJson())).toList();
+    await prefs.setStringList(_taskKey, jsonTasks);
+  }
+
+  static Future<List<Task>> loadTasks() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? jsonTasks = prefs.getStringList(_taskKey);
+
+    if (jsonTasks == null) return [];
+
+    return jsonTasks.map((jsonStr) {
+      Map<String, dynamic> json = jsonDecode(jsonStr);
+      return Task.fromJson(json);
+    }).toList();
+  }
+}
