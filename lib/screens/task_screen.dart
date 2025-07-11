@@ -5,6 +5,7 @@ class TaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Sample task data (you can later replace this with a model or backend data)
     final tasks = [
       {
         "priority": "High Priority",
@@ -27,22 +28,24 @@ class TaskPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAFC),
+      backgroundColor: const Color(0xFFF7FAFC), // Light background
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0), // Side padding
         child: ListView.separated(
           itemCount: tasks.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 16),
+          separatorBuilder: (_, __) => const SizedBox(height: 16), // Space between items
           itemBuilder: (_, index) {
             final task = tasks[index];
+
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Textual info
+                // 📝 Text Info (Left)
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Priority label
                       Text(
                         task["priority"]!,
                         style: const TextStyle(
@@ -52,6 +55,7 @@ class TaskPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
+                      // Task title
                       Text(
                         task["title"]!,
                         style: const TextStyle(
@@ -61,6 +65,7 @@ class TaskPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 2),
+                      // Due date
                       Text(
                         "Due: ${task["due"]}",
                         style: const TextStyle(
@@ -72,15 +77,17 @@ class TaskPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 12),
-                // Image
+
+                const SizedBox(width: 12), // Gap between text and image
+
+                // 🖼 Task Image (Right)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
                     task["image"]!,
                     height: 72,
                     width: 96,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.cover, // Ensures image fills container
                   ),
                 ),
               ],

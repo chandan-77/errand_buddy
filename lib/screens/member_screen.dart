@@ -1,109 +1,9 @@
 import 'package:flutter/material.dart';
 
-// class MemberScreen extends StatelessWidget {
-//   final List<Map<String, String>> members = [
-//     {'name': 'Alice', 'image': 'assets/p2.png'},
-//     {'name': 'Bob', 'image': 'assets/p3.png'},
-//     {'name': 'Charlie', 'image': 'assets/p4.png'},
-//   ];
-
-//   MemberScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       // appBar: AppBar(
-//       //   // title: const Text(
-//       //   //   'Members',
-//       //   //   style: TextStyle(fontWeight: FontWeight.bold),
-//       //   // ),
-//       //   // backgroundColor: const Color(0xFFF7FAFC),
-//       //   foregroundColor: Colors.teal,
-//       //   centerTitle: true,
-//       //   elevation: 0,
-//       // ),
-//       backgroundColor: const Color(0xFFF7FAFC),
-//       body: ListView.builder(
-//         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//         itemCount: members.length,
-//         itemBuilder: (context, index) {
-//           return Card(
-//             elevation: 2,
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             margin: const EdgeInsets.only(bottom: 12),
-//             child: Padding(
-//               padding: const EdgeInsets.all(12),
-//               child: Row(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   ClipRRect(
-//                     borderRadius: BorderRadius.circular(30),
-//                     child: Image.asset(
-//                       members[index]['image']!,
-//                       width: 48,
-//                       height: 48,
-//                       fit: BoxFit.cover,
-//                     ),
-//                   ),
-//                   const SizedBox(width: 16),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           members[index]['name']!,
-//                           style: const TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                         const SizedBox(height: 4),
-//                         const Text(
-//                           "Member of Task Team",
-//                           style: TextStyle(fontSize: 14, color: Colors.grey),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   const Icon(Icons.check_circle_outline, color: Colors.teal),
-//                 ],
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//       // bottomNavigationBar: BottomNavigationBar(
-//       //   currentIndex: 0, // Members
-//       //   onTap: (index) {
-//       //     if (index == 0) return; // Already here
-//       //     if (index == 1) Navigator.pushReplacementNamed(context, '/tasks');
-//       //     if (index == 2)
-//       //       Navigator.pushReplacementNamed(context, '/escalation');
-//       //     if (index == 3) {} // Profile not implemented yet
-//       //   },
-//       //   selectedItemColor: Colors.teal,
-//       //   unselectedItemColor: Colors.grey,
-//       //   items: const [
-//       //     BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
-//       //     BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Tasks'),
-//       //     BottomNavigationBarItem(
-//       //       icon: Icon(Icons.access_time),
-//       //       label: 'Escalations',
-//       //     ),
-//       //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-//       //   ],
-//       // ),
-//     );
-//   }
-// }
-
-
-
 class MemberScreen extends StatelessWidget {
   MemberScreen({super.key});
 
+  // Dummy member data list with name, image, and task stats
   final List<Map<String, dynamic>> members = [
     {
       'name': 'Sophia',
@@ -152,34 +52,39 @@ class MemberScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAFC),
+      backgroundColor: const Color(0xFFF7FAFC), // Light background color
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         child: GridView.builder(
-          itemCount: members.length,
+          itemCount: members.length, // Total number of members
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.9,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+            crossAxisCount: 2,         // Two cards per row
+            childAspectRatio: 0.9,     // Adjusts card height vs width
+            crossAxisSpacing: 12,      // Space between columns
+            mainAxisSpacing: 12,       // Space between rows
           ),
           itemBuilder: (context, index) {
             final member = members[index];
+
             return Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: const Color(0xFFD9E2EC)),
-                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: const Color(0xFFD9E2EC)), // Light border
+                borderRadius: BorderRadius.circular(12), // Rounded corners
               ),
               padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Profile image
                   CircleAvatar(
                     backgroundImage: AssetImage(member['image']),
                     radius: 20,
                   ),
+
                   const SizedBox(height: 12),
+
+                  // Member name
                   Text(
                     member['name'],
                     style: const TextStyle(
@@ -188,7 +93,10 @@ class MemberScreen extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
+
                   const SizedBox(height: 8),
+
+                  // Assigned task count
                   Text(
                     "Assigned: ${member['assigned']},",
                     style: const TextStyle(
@@ -197,6 +105,8 @@ class MemberScreen extends StatelessWidget {
                       color: Color(0xFF4F7396),
                     ),
                   ),
+
+                  // Overdue task count
                   Text(
                     "Overdue: ${member['overdue']},",
                     style: const TextStyle(
@@ -205,6 +115,8 @@ class MemberScreen extends StatelessWidget {
                       color: Color(0xFF4F7396),
                     ),
                   ),
+
+                  // Completed task count
                   Text(
                     "Completed: ${member['completed']}",
                     style: const TextStyle(

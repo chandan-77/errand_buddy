@@ -8,9 +8,10 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final PageController _pageController = PageController(); // Controller for swipe navigation
+  int _currentPage = 0; // To track current onboarding screen index
 
+  // Onboarding page data (image, title, subtitle)
   final List<Map<String, String>> _pages = [
     {
       'image': 'assets/second_screen.png',
@@ -35,6 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       backgroundColor: const Color(0xFFF7FAFC),
       body: Column(
         children: [
+          // Main onboarding content
           Expanded(
             child: PageView.builder(
               controller: _pageController,
@@ -45,6 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Onboarding image in styled container
                     Container(
                       padding: const EdgeInsets.all(2),
                       width: double.infinity,
@@ -56,10 +59,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         color: Color(0xFF2A5555),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                
-                      child: Image.asset(page['image']!, fit: BoxFit.fill),
+                      child: Image.asset(
+                        page['image']!,
+                        fit: BoxFit.fill, // Fill the container (may stretch)
+                      ),
                     ),
                     const SizedBox(height: 4), // Gap between image and title
+
+                    // Onboarding title
                     Text(
                       page['title']!,
                       style: const TextStyle(
@@ -68,7 +75,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+
                     const SizedBox(height: 12),
+
+                    // Subtitle / description
                     Text(
                       page['subtitle']!,
                       style: const TextStyle(
@@ -83,6 +93,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
             ),
           ),
+
+          // Dots indicator for pages
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
@@ -93,14 +105,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 10,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color:
-                      _currentPage == index
-                          ? Colors.blue
-                          : Colors.grey.shade300,
+                  color: _currentPage == index
+                      ? Colors.blue
+                      : Colors.grey.shade300,
                 ),
               ),
             ),
           ),
+
+          // Show 'Get Started' only on last screen
           if (_currentPage == _pages.length - 1)
             Padding(
               padding: const EdgeInsets.only(bottom: 32.0),
@@ -116,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, '/home'); // Go to home page
                 },
                 child: const Text(
                   'Get Started',

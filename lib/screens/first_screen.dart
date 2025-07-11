@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     TaskPage(),
     MemberScreen(),
     EscalationLogScreen(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
   final List<String> _titles = [
@@ -61,28 +61,31 @@ class _MainScreenState extends State<MainScreen> {
                 : null,
       ),
       body: _screens[_currentIndex],
-bottomNavigationBar: BottomNavigationBar(
-  currentIndex: _currentIndex,
-  selectedItemColor: Colors.black,
-  unselectedItemColor: Color(0xFF4F7396),
-  backgroundColor: Colors.white,
-  selectedLabelStyle: TextStyle(
-    fontFamily: 'PlusJakartaSans',
-    fontWeight: FontWeight.w500,
-  ),
-  unselectedLabelStyle: TextStyle(
-    fontFamily: 'PlusJakartaSans',
-    fontWeight: FontWeight.w500,
-  ),
-  type: BottomNavigationBarType.fixed, // ensures label is always shown
-  onTap: (index) => setState(() => _currentIndex = index),
-  items: const [
-    BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
-    BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Tasks'),
-    BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Escalation'),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-  ],
-),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Color(0xFF4F7396),
+        backgroundColor: Colors.white,
+        selectedLabelStyle: TextStyle(
+          fontFamily: 'PlusJakartaSans',
+          fontWeight: FontWeight.w500,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontFamily: 'PlusJakartaSans',
+          fontWeight: FontWeight.w500,
+        ),
+        type: BottomNavigationBarType.fixed, // ensures label is always shown
+        onTap: (index) => setState(() => _currentIndex = index),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Tasks'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'Escalation',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
     );
   }
 }

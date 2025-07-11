@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/task.dart';
 
+// Add Task Screen to create a new task
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
 
@@ -9,18 +10,23 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  // Form key to manage form state
   final _formKey = GlobalKey<FormState>();
+
+  // Form field variables
   String title = '';
   String description = '';
   String priority = 'Low';
   DateTime dueDate = DateTime.now();
 
+  // Save task and return to previous screen
   void _saveTask() {
     _formKey.currentState?.save();
     Task newTask = Task(title: title, priority: priority, dueDate: dueDate);
-    Navigator.pop(context, newTask);
+    Navigator.pop(context, newTask); // return new task to caller
   }
 
+  // Widget to create priority buttons (High/Medium/Low)
   Widget _buildPriorityButton(String level) {
     final isSelected = priority == level;
     return Expanded(
@@ -46,6 +52,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 
+  // Open date picker and update the selected due date
   Future<void> _pickDate() async {
     DateTime? picked = await showDatePicker(
       context: context,
@@ -60,6 +67,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
+      // App bar
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -67,6 +76,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         title: Text('Add Task', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
+
+      // Form body
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -74,7 +85,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title Field
+
+              // Title input
               TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Task Title',
@@ -89,7 +101,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               SizedBox(height: 16),
 
-              // Description Field
+              // Description input
               TextFormField(
                 maxLines: 4,
                 decoration: InputDecoration(
@@ -105,14 +117,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               SizedBox(height: 16),
 
-              // Priority Label
+              // Priority label
               Text(
                 'Priority',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 8),
 
-              // Priority Buttons
+              // Priority button row (High, Medium, Low)
               Row(
                 children: [
                   _buildPriorityButton('High'),
@@ -124,14 +136,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               SizedBox(height: 16),
 
-              // Assignee Label
+              // Assignee label (currently visual only)
               Text(
                 'Assignee',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 8),
 
-              // Assignee Images
+              // Assignee avatars
               Row(
                 children: [
                   CircleAvatar(backgroundImage: AssetImage('assets/p2.png')),
@@ -143,7 +155,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               SizedBox(height: 16),
 
-              // Due Date Field
+              // Due date picker
               GestureDetector(
                 onTap: _pickDate,
                 child: Container(
@@ -161,7 +173,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               Spacer(),
 
-              // Save Task Button
+              // Add Task button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
